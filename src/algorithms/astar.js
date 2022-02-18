@@ -67,35 +67,35 @@ function Neighbors(grid, node) {
     // console.log(x, y);
     // console.log('gg?', grid[x][y])
 
-    // if(grid[x-1] && grid[x-1][y]) {
-    //   ret.push(grid[x-1][y]);
-    // }
-    // if(grid[x+1] && grid[x+1][y]) {
-    //   ret.push(grid[x+1][y]);
-    // }
-    // if(grid[x][y-1] && grid[x][y-1]) {
-    //   ret.push(grid[x][y-1]);
-    // }
-    // if(grid[x][y+1] && grid[x][y+1]) {
-    //   ret.push(grid[x][y+1]);
-    // }
-
-    // West
-  if(grid[x-1] && grid[x-1][y]) {
-    ret.push(grid[x-1][y]);
-  }
-  // East
-  if(grid[x+1] && grid[x+1][y]) {
+    if(grid[x-1] && grid[x-1][y]) {
+      ret.push(grid[x-1][y]);
+    }
+    if(grid[x+1] && grid[x+1][y]) {
       ret.push(grid[x+1][y]);
-  }
-  // South
-  if(grid[x] && grid[x][y-1]) {
+    }
+    if(grid[x][y-1] && grid[x][y-1]) {
       ret.push(grid[x][y-1]);
-  }
-  // North
-  if(grid[x] && grid[x][y+1]) {
-    ret.push(grid[x][y+1]);
-  }
+    }
+    if(grid[x][y+1] && grid[x][y+1]) {
+      ret.push(grid[x][y+1]);
+    }
+
+  //   // West
+  // if(grid[x-1] && grid[x-1][y]) {
+  //   ret.push(grid[x-1][y]);
+  // }
+  // // East
+  // if(grid[x+1] && grid[x+1][y]) {
+  //     ret.push(grid[x+1][y]);
+  // }
+  // // South
+  // if(grid[x] && grid[x][y-1]) {
+  //     ret.push(grid[x][y-1]);
+  // }
+  // // North
+  // if(grid[x] && grid[x][y+1]) {
+  //   ret.push(grid[x][y+1]);
+  // }
 
     return ret;
 }
@@ -235,10 +235,9 @@ function heap () {
 export function AStar(grid, start, end) {
     initMap(grid);
     // heuristic = heuristic || manhattan
-    // console.log('END NODE:', end);
-    var openList = [];
+    // var openList = [];
     var closedList = [];
-    openList.push(start);
+    // openList.push(start);
 
     var openHeap = heap();
     openHeap.push(start);
@@ -253,7 +252,8 @@ export function AStar(grid, start, end) {
         //     }
         // }
 
-        var currentNode = openHeap.content[0];
+        var currentNode = openHeap.pop();
+        // var currentNode = openList.pop();
 
         // var currentNode = openList[lowInd];
         // Done, return to traced path
@@ -267,20 +267,23 @@ export function AStar(grid, start, end) {
             }
 
             console.log('A* DONE', ret.reverse());
-            console.log('openList', openList);
+            // console.log('openList', openList);
+            console.log('openHeap', openHeap.content.reverse());
+            console.log('closedList', closedList);
             return [ret.reverse(), closedList];
+            return [ret.reverse(), openHeap.content.reverse()];
         }
 
         // Continue, move currentNode from open to closed
         // process each of its neighbours
         currentNode.isVisited = true;
+        closedList.push(currentNode);
         // openList = removeItemOnce([...openList], currentNode);
         // openList.pop();
-        closedList.push(currentNode);
-        currentNode = openHeap.pop();
+        // closedList.push(currentNode);
+        // currentNode = openHeap.pop();
         
         var neighbors = Neighbors(grid, currentNode);
-        // console.log('n', neighbors);
         for (let i = 0; i < neighbors.length; i++) {
             var neighbor = neighbors[i];
             if (neighbor.isVisited || neighbor.isWall) {
@@ -293,15 +296,13 @@ export function AStar(grid, start, end) {
             var gScore = currentNode.g + 1; // distance to neighbor
             var beenVisited = neighbor.isVisited;
             var gScoreIsBest = false;
-            // console.log('openList', openList);
-            // console.log('neighbor', neighbor);
-            // console.log('containsObject', containsObject(neighbor, openList))
+
             // if(!containsObject(neighbor, openList)) {
             if(!beenVisited || gScore < neighbor.g) {
                 // probably the best
                 gScoreIsBest = true;
                 neighbor.h = Heuristic(neighbor.col, neighbor.row, end.col, end.row);
-                openList.push(neighbor);
+                // openList.push(neighbor);
                 // console.log('openList NEW PUSH', openList);
             }
 
@@ -314,10 +315,7 @@ export function AStar(grid, start, end) {
                 neighbor.previousNode = currentNode;
                 neighbor.g = gScore;
                 neighbor.f = neighbor.g + neighbor.h;
-                // neighbor.isFinish = true;
                 // console.log('neighbor wit best score', neighbor);
-
-
             }
             
             if (!beenVisited) {
