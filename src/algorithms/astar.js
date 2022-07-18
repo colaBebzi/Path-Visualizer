@@ -266,12 +266,12 @@ export function AStar(grid, start, end) {
                 curr = curr.previousNode;
             }
 
-            console.log('A* DONE', ret.reverse());
+            //console.log('A* DONE', ret.reverse());
             // console.log('openList', openList);
-            console.log('openHeap', openHeap.content.reverse());
-            console.log('closedList', closedList);
-            return [ret.reverse(), closedList];
-            // return [ret.reverse(), openHeap.content.reverse()];
+            //console.log('openHeap', openHeap.content.reverse());
+            //console.log('closedList', closedList);
+            //return [ret.reverse(), closedList];
+            return [openHeap.content.reverse(), closedList];
         }
 
         // Continue, move currentNode from open to closed
@@ -300,7 +300,7 @@ export function AStar(grid, start, end) {
             // if(!containsObject(neighbor, openList)) {
             if(!beenVisited || gScore < neighbor.g) {
               // probably the best
-              // gScoreIsBest = true;
+               gScoreIsBest = true;
               neighbor.h = Heuristic(neighbor.col, neighbor.row, end.col, end.row);
               // openList.push(neighbor);
               
@@ -316,11 +316,12 @@ export function AStar(grid, start, end) {
                 // console.log('neighbor wit best score', neighbor);
               }
                 
-              if (beenVisited) {
-                openHeap.rescoreElement(neighbor);
-              } else { 
-                openHeap.push(neighbor); 
-              }
+                if (!beenVisited) {
+                    openHeap.push(neighbor);
+                }
+                else {
+                    openHeap.rescoreElement(neighbor);
+                }
             }
         }
     }
