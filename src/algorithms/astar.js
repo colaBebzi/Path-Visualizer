@@ -16,40 +16,40 @@ function initMap(grid) {
 
 function isFinalNode(current, end) {
 
-    if(current.col == end.col && current.row == end.row) return true;
+    if(current.col === end.col && current.row === end.row) return true;
     else return false;
 }
 
-function removeItemOnce(arr, value) {
-    var index = arr.indexOf(value);
-    // console.log('arr', ...arr, 'index', index);
-    if (index > -1) {
-      arr.splice(index, 1);
-    }
-    // console.log('arr after', ...arr);
-    return arr;
-  }
+//function removeItemOnce(arr, value) {
+//    var index = arr.indexOf(value);
+//    // console.log('arr', ...arr, 'index', index);
+//    if (index > -1) {
+//      arr.splice(index, 1);
+//    }
+//    // console.log('arr after', ...arr);
+//    return arr;
+//  }
 
-function containsObject(obj, list) {
-    var i;
-    for (i = 0; i < list.length; i++) {
-        if (list[i] === obj) {
-            return true;
-        }
-    }
+//function containsObject(obj, list) {
+//    var i;
+//    for (i = 0; i < list.length; i++) {
+//        if (list[i] === obj) {
+//            return true;
+//        }
+//    }
 
-    return false;
-}
+//    return false;
+//}
 
-function isEmpty(obj) {
-    for(var prop in obj) {
-      if(Object.prototype.hasOwnProperty.call(obj, prop)) {
-        return false;
-      }
-    }
+//function isEmpty(obj) {
+//    for(var prop in obj) {
+//      if(Object.prototype.hasOwnProperty.call(obj, prop)) {
+//        return false;
+//      }
+//    }
   
-    return JSON.stringify(obj) === JSON.stringify({});
-  }
+//    return JSON.stringify(obj) === JSON.stringify({});
+//  }
 
 function Heuristic(pos0_x, pos0_y, pos1_x, pos1_y) {
     // Manhattan distance
@@ -271,7 +271,7 @@ export function AStar(grid, start, end) {
             console.log('openHeap', openHeap.content.reverse());
             console.log('closedList', closedList);
             return [ret.reverse(), closedList];
-            return [ret.reverse(), openHeap.content.reverse()];
+            // return [ret.reverse(), openHeap.content.reverse()];
         }
 
         // Continue, move currentNode from open to closed
@@ -299,16 +299,14 @@ export function AStar(grid, start, end) {
 
             // if(!containsObject(neighbor, openList)) {
             if(!beenVisited || gScore < neighbor.g) {
-                // probably the best
-                gScoreIsBest = true;
-                neighbor.h = Heuristic(neighbor.col, neighbor.row, end.col, end.row);
-                // openList.push(neighbor);
-                // console.log('openList NEW PUSH', openList);
-            }
-
-            if (gScore < neighbor.g) { gScoreIsBest = true; }
-
-            if (gScoreIsBest) {
+              // probably the best
+              // gScoreIsBest = true;
+              neighbor.h = Heuristic(neighbor.col, neighbor.row, end.col, end.row);
+              // openList.push(neighbor);
+              
+              if (gScore < neighbor.g) { gScoreIsBest = true; }
+              
+              if (gScoreIsBest) {
                 // found a so far optimal path to this node
                 // store info on it
                 neighbor.isVisited = true;
@@ -316,15 +314,14 @@ export function AStar(grid, start, end) {
                 neighbor.g = gScore;
                 neighbor.f = neighbor.g + neighbor.h;
                 // console.log('neighbor wit best score', neighbor);
-            }
-            
-            if (!beenVisited) {
-              openHeap.push(neighbor);
-            }
-            else {
+              }
+                
+              if (beenVisited) {
                 openHeap.rescoreElement(neighbor);
+              } else { 
+                openHeap.push(neighbor); 
+              }
             }
-            
         }
     }
 

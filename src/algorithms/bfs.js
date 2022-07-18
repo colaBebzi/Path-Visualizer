@@ -32,15 +32,15 @@ export function bfs(grid, startNode, finishNode)
   // If end does not have a parent, it means that it has not been found.
 } 
 
-function getUnvisitedNeighbors(node, grid) {
-    const neighbors = [];
-    const {col, row} = node;
-    if (row > 0) neighbors.push(grid[row - 1][col]);
-    if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
-    if (col > 0) neighbors.push(grid[row][col - 1]);
-    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-    return neighbors.filter(neighbor => !neighbor.isVisited);
-  }
+//function getUnvisitedNeighbors(node, grid) {
+//    const neighbors = [];
+//    const {col, row} = node;
+//    if (row > 0) neighbors.push(grid[row - 1][col]);
+//    if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
+//    if (col > 0) neighbors.push(grid[row][col - 1]);
+//    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
+//    return neighbors.filter(neighbor => !neighbor.isVisited);
+//  }
 
 function getAllNodes(grid) {
     const nodes = [];
@@ -91,10 +91,10 @@ export function breadthFirstSearch(grid, startNode, finishNode) {
 
 
 
-let visited;
-let graphAdj;
-let ROW = 19;
-let COL = 49;
+//let visited;
+//let graphAdj;
+//let ROW = 19;
+//let COL = 49;
 
 export function initMap(grid, startNode) {
    

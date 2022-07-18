@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Node from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../../algorithms/dijkstra';
-import {bfs, bs, initMap, breadthFirstSearch} from '../../algorithms/bfs';
+import {initMap, breadthFirstSearch} from '../../algorithms/bfs';
 import { AStar } from '../../algorithms/astar';
 // import { astar } from '../../algorithms/astar2';
 
@@ -203,6 +203,8 @@ export default class Visualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const astar = AStar(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    console.log('nodesInShortestPathOrder', nodesInShortestPathOrder);
+    console.log('astar', astar);
     this.animateVisitedAstar(astar[1])
       .then(() => this.animateAstar(astar[0], nodesInShortestPathOrder))
   }
@@ -213,7 +215,8 @@ export default class Visualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     initMap(grid, startNode);
     // const visitedNodesInOrder = bs(grid, startNode);
-    const visitedNodesInOrder = breadthFirstSearch(grid, startNode, finishNode);
+    //const visitedNodesInOrder = breadthFirstSearch(grid, startNode, finishNode);
+    breadthFirstSearch(grid, startNode, finishNode);
     // const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     // this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
