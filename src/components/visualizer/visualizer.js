@@ -221,12 +221,14 @@ export default class Visualizer extends Component {
   //  // this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   //}
 
+  // md:w-55 lg:w-90 
+  // max-w-2xl 
   render() {
     const {grid, mouseIsPressed} = this.state;
 
     return (
-      <>
-        <div className="btns">
+      <div>
+        <div className="btns space-x-2 space-y-1">
           <button className="btn-primary" onClick={() => this.visualizeDijkstra()} onChange={() => this.addSelected()}>
             Visualize Dijkstra's Algorithm
           </button>
@@ -249,7 +251,7 @@ export default class Visualizer extends Component {
             Update
           </button>
         </div>
-        <div className="grid">
+        <div className="grid grid-cols-20 mb-10 mt-24">
           {grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
@@ -275,7 +277,7 @@ export default class Visualizer extends Component {
             );
           })}
         </div>
-      </>
+      </div>
     );
   }
 }
@@ -284,7 +286,7 @@ const getInitialGrid = () => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const currentRow = [];
-    for (let col = 0; col < 50; col++) {
+    for (let col = 0; col < 15; col++) {
       currentRow.push(createNode(col, row));
     }
     grid.push(currentRow);
