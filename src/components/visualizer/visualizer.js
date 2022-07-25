@@ -228,7 +228,7 @@ export default class Visualizer extends Component {
 
     return (
       <div>
-        <div className="btns space-x-2 space-y-1">
+        <div className="btns space-x-2 space-y-1 glass-effect">
           <button className="btn-primary" onClick={() => this.visualizeDijkstra()} onChange={() => this.addSelected()}>
             Visualize Dijkstra's Algorithm
           </button>
@@ -251,6 +251,7 @@ export default class Visualizer extends Component {
             Update
           </button>
         </div>
+        {/* set size panel */}
         <div className="grid mb-10 mt-24">
           {grid.map((row, rowIdx) => {
             return (

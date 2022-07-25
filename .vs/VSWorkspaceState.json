@@ -2,10 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\dist",
-    "\\src",
-    "\\src\\components\\visualizer",
-    "\\src\\components\\visualizer\\Node"
+    "\\src"
   ],
-  "SelectedNode": "\\dist\\output.css",
   "PreviewInSolutionExplorer": false
 }
