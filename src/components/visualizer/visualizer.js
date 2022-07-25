@@ -251,7 +251,7 @@ export default class Visualizer extends Component {
             Update
           </button>
         </div>
-        <div className="grid grid-cols-20 mb-10 mt-24">
+        <div className="grid mb-10 mt-24">
           {grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
@@ -284,7 +284,7 @@ export default class Visualizer extends Component {
 
 const getInitialGrid = () => {
   const grid = [];
-  for (let row = 0; row < 20; row++) {
+  for (let row = 0; row < 15; row++) {
     const currentRow = [];
     for (let col = 0; col < 15; col++) {
       currentRow.push(createNode(col, row));

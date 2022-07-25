@@ -2,10 +2,15 @@
     margin: 100px 0 0;
   } */
 
-  .grid-cols-15 {
+  .grid-gg-15 {
 
     grid-template-columns: repeat(15, minmax(0, 1fr));
   }
+/* 
+  .grid-wp-15 {
+
+    grid-template-columns: repeat(minmax(0, 1fr), 15);
+  } */
 
 .btns {
     margin: 25px;
