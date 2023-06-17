@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component } from 'react';
 import Node from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../../algorithms/dijkstra';
 //import {initMap, breadthFirstSearch} from '../../algorithms/bfs';
@@ -253,7 +253,7 @@ export default class Visualizer extends Component {
 
   
   render() {
-    const {grid, mouseIsPressed, darkMode} = this.state;
+    const {grid, mouseIsPressed} = this.state;
 
     return (
       // <div className={darkMode ? 'dark-mode' : 'light-mode'}>
