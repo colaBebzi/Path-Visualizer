@@ -2,7 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\dist",
-    "\\src"
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\visualizer",
+    "\\src\\images"
   ],
   "PreviewInSolutionExplorer": false
 }

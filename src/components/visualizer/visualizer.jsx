@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import Node from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../../algorithms/dijkstra';
 //import {initMap, breadthFirstSearch} from '../../algorithms/bfs';
 import { AStar } from '../../algorithms/astar';
 // import { astar } from '../../algorithms/astar2';
+import flagsmith from 'flagsmith';
+import { useFlags, useFlagsmith } from 'flagsmith/react';
+
 
 import './visualizer.css';
 
@@ -20,8 +23,15 @@ export default class Visualizer extends Component {
     this.state = {
       grid: [],
       mouseIsPressed: false,
+      // darkMode: false,
     };
   }
+
+  // toggleDarkMode = () => {
+  //   this.setState(prevState => ({
+  //     darkMode: !prevState.darkMode,
+  //   }));
+  // };
 
   setHandler(h) {
     handler = h;
@@ -44,6 +54,23 @@ export default class Visualizer extends Component {
   }
 
   componentDidMount() {
+    // flagsmith.init({
+    //   environmentID: 'FyA89scRGCQZqy7rAQaarB',
+    // })
+    // .finally(() => {
+
+    //   const { flags } = flagsmith;
+    //   console.log(flags)
+    //   const darkModeValue = flags['dark_mode']?.enabled ?? false;
+    //   console.log(darkModeValue)
+
+    //   this.setState({
+    //     darkMode: darkModeValue,
+    //   });
+    // });
+
+    
+
     const grid = getInitialGrid();
     this.setState({grid});
   }
@@ -223,12 +250,18 @@ export default class Visualizer extends Component {
 
   // md:w-55 lg:w-90 
   // max-w-2xl 
+
+  
   render() {
-    const {grid, mouseIsPressed} = this.state;
+    const {grid, mouseIsPressed, darkMode} = this.state;
 
     return (
-      <div>
+      // <div className={darkMode ? 'dark-mode' : 'light-mode'}>
+      <div className="dark-mode">
         <div className="btns space-x-2 space-y-1 glass-effect">
+          {/* <button className="btn-primary" onClick={this.toggleDarkMode}>
+            {darkMode ? 'Disable Dark Mode' : 'Enable Dark Mode'}
+          </button> */}
           <button className="btn-primary" onClick={() => this.visualizeDijkstra()} onChange={() => this.addSelected()}>
             Visualize Dijkstra's Algorithm
           </button>

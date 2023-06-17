@@ -18,6 +18,9 @@
   --pink: #f57dff;
   --blue: #57cbff;
 
+  --dark-mode: #37474F;
+  --ligth-mode: #DEE4E7;
+
   --font-sans: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui,
     sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
@@ -50,7 +53,7 @@
     transform 0.22s cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s;
 }
 
-header {
+head-gg {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,6 +82,14 @@ header {
   padding: 20px !important;
 }
 
+.light-mode {
+  background-color: #DEE4E7;
+}
+
+.dark-mode {
+  background-color: #37474F;
+}
+
 @media (min-width: 1000px) { 
   body {
     display: flex;
@@ -95,7 +106,7 @@ header {
     max-width: 500px;
     min-height: 100%;
     overflow-x: hidden;
-    background-color: var(--light-navy);
+    background-color: var(--dark-mode);
     color: var(--slate);
     font-family: var(--font-sans);
     font-size: var(--fz-xl);
@@ -105,7 +116,7 @@ header {
     background-attachment:fixed;
     background-repeat:no-repeat; 
     background-size:15% ; */
-  }
+   }
 } 
  
 @media (max-width: 999px) {
