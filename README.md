@@ -40,6 +40,12 @@ Browser tests use Microsoft Edge by default. Set PLAYWRIGHT_CHANNEL=chrome for i
 
 ## Structure
 
+Netlify builds use Node.js 22 and publish `dist/`, as configured in
+`netlify.toml`. The `.nvmrc` file also selects Node.js 22 for local version
+managers. These settings replace the legacy Create React App deployment
+configuration. Push these files to the deployed branch to apply them on the
+next Netlify build.
+
 - `src/App.vue` � playground controls, grid, and animation lifecycle.
 - `src/style.css` � visual system and responsive layouts.
 - `src/lib/pathfinding.js` � framework-independent search and maze generation.
