@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+﻿# Pathfinder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An interactive pathfinding playground, rebuilt with Vue 3 and Vite. Draw walls, move the endpoints, and watch an algorithm find its way across the grid.
 
-## Available Scripts
+## Run locally
 
-In the project directory, you can run:
+Requires Node.js 20.19+ or 22.12+.
 
-### `npm start`
+```sh
+npm install
+npm run dev
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open http://127.0.0.1:5173. `npm start` is also available.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Explore
 
-### `npm test`
+- Four algorithms: Dijkstra, A*, breadth-first search, and depth-first search.
+- Draw and erase walls with mouse or touch; drag the start and finish markers.
+- Generate a switchback maze or randomized terrain with a guaranteed route.
+- Play, pause, resume, and step through the search; adjust speed while it runs.
+- See visited nodes, route length, and algorithm computation time (excluding animation).
+- Clear the search while keeping your world, or reset the entire grid.
+- Responsive layout, keyboard editing, and reduced-motion support.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Use W for walls, E to erase, S to place the start, and F to place the finish. Space plays or pauses when focus is outside a control. Tab into the grid, navigate with arrow keys, and paint with Enter or Space.
 
-### `npm run build`
+All movement is orthogonal and costs one step. Dijkstra, A*, and BFS guarantee a shortest route; DFS does not. A* uses Manhattan distance. Dijkstra and A* use a linear minimum scan of the frontier (O(V^2) on this bounded-degree grid); BFS and DFS are O(V + E).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Commands
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm test          # Algorithm and maze correctness
+npm run test:e2e # Browser interaction tests
+npm run build   # Production output in dist/
+npm run preview # Serve the production build locally
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Browser tests use Microsoft Edge by default. Set PLAYWRIGHT_CHANNEL=chrome for installed Chrome, or PLAYWRIGHT_CHANNEL=chromium and run `npx playwright install chromium` for Playwright's browser.
 
-### `npm run eject`
+## Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `src/App.vue` � playground controls, grid, and animation lifecycle.
+- `src/style.css` � visual system and responsive layouts.
+- `src/lib/pathfinding.js` � framework-independent search and maze generation.
+- `tests/` � Node tests and Playwright browser checks.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The production build is static and uses relative asset paths for subdirectory hosting. Typography loads from Google Fonts with local sans-serif fallbacks. No account, backend, or feature-flag service is required.
