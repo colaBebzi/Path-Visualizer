@@ -1,8 +1,9 @@
-import test from "node:test";
-import assert from "node:assert/strict";
-import { search, createMaze } from "../src/lib/pathfinding.js";
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { search } from '../../src/algorithms/search.js';
+import { createMaze } from '../../src/algorithms/maze.js';
 
-for (const algorithm of ["dijkstra", "astar", "bfs", "dfs"]) {
+for (const algorithm of ['dijkstra', 'astar', 'bfs', 'dfs']) {
   test(`${algorithm} finds a connected route around walls`, () => {
     const walls = new Set([2, 7, 12, 17]);
     const result = search({
@@ -16,16 +17,15 @@ for (const algorithm of ["dijkstra", "astar", "bfs", "dfs"]) {
     assert.equal(result.path[0], 0);
     assert.equal(result.path.at(-1), 4);
     for (let i = 1; i < result.path.length; i++) {
-      const a = result.path[i - 1],
-        b = result.path[i];
+      const a = result.path[i - 1];
+      const b = result.path[i];
       assert.equal(
-        Math.abs(Math.floor(a / 5) - Math.floor(b / 5)) +
-          Math.abs((a % 5) - (b % 5)),
+        Math.abs(Math.floor(a / 5) - Math.floor(b / 5)) + Math.abs((a % 5) - (b % 5)),
         1,
       );
       assert.ok(!walls.has(b));
     }
-    if (algorithm !== "dfs") assert.equal(result.path.length - 1, 12);
+    if (algorithm !== 'dfs') assert.equal(result.path.length - 1, 12);
   });
   test(`${algorithm} reports an unreachable finish`, () => {
     const result = search({
@@ -52,18 +52,15 @@ for (const algorithm of ["dijkstra", "astar", "bfs", "dfs"]) {
     assert.deepEqual(search({ ...options, finish: 0 }).path, [0]);
   });
 }
-for (const kind of ["division", "random"]) {
+for (const kind of ['division', 'random']) {
   test(`${kind} maze keeps endpoints open and has a route`, () => {
-    const rows = 21,
-      cols = 39,
-      start = 398,
-      finish = 420;
+    const rows = 21;
+    const cols = 39;
+    const start = 398;
+    const finish = 420;
     const walls = createMaze(rows, cols, start, finish, kind, () => 0.1);
     assert.ok(walls.size > 0);
     assert.ok(!walls.has(start) && !walls.has(finish));
-    assert.ok(
-      search({ rows, cols, start, finish, walls, algorithm: "bfs" }).path
-        .length > 0,
-    );
+    assert.ok(search({ rows, cols, start, finish, walls, algorithm: 'bfs' }).path.length > 0);
   });
 }
